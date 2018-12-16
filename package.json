@@ -1,0 +1,31 @@
+{
+  "name": "poi-plugin-battle-notice",
+  "version": "0.1.0",
+  "description": "A poi plugin which can notice after the end of the battle",
+  "main": "index.es",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lawvs/plugin-battle-notice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lawvs/plugin-battle-notice/issues"
+  },
+  "author": {
+    "name": "lawvs",
+    "url": "https://github.com/lawvs"
+  },
+  "homepage": "https://github.com/lawvs/plugin-battle-notice",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "poiPlugin": {
+    "title": "Battle Notice",
+    "icon": "bell",
+    "description": "Notice after the end of the battle",
+    "priority": 101,
+    "apiVer": {}
+  }
+}
