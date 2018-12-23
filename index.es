@@ -19,6 +19,7 @@ const handleGameResponse = event => {
     case '/kcsapi/api_req_sortie/battle':
       inBattle = true
       break
+    case '/kcsapi/api_req_practice/battle_result':
     case '/kcsapi/api_req_sortie/battleresult':
       inBattle = false
       break
