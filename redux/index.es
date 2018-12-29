@@ -1,5 +1,4 @@
 /* global config */
-import { get } from 'lodash'
 import { createSelector } from 'reselect'
 
 // https://github.com/poooi/poi/blob/master/views/utils/selectors.es
@@ -19,7 +18,7 @@ export const pluginConfigSelector = createSelector(
   configSelector,
   state => ({
     ...defaultConfig,
-    ...get(state, `plugin.${PLUGIN_NAME}`),
+    ...state?.plugin?.PLUGIN_NAME,
   }),
 )
 
@@ -31,6 +30,7 @@ export const pluginStateSelector = createSelector(
 
 // Actions
 const PLUGIN_INIT = `@@${PLUGIN_NAME}@init`
+const PLUGIN_REMOVE = `@@${PLUGIN_NAME}@remove`
 const CONFIG_CHANGE = `@@${PLUGIN_NAME}@configChange`
 const BATTLE_START = `@@${PLUGIN_NAME}@battleStart`
 const BATTLE_END = `@@${PLUGIN_NAME}@battleEnd`
@@ -79,3 +79,4 @@ export const updatePluginConfig = (key, value) => {
 export const startBattle = () => ({ type: BATTLE_START })
 export const endBattle = () => ({ type: BATTLE_END })
 export const initPlugin = () => ({ type: PLUGIN_INIT })
+export const removePlugin = () => ({ type: PLUGIN_REMOVE })

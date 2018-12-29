@@ -3,11 +3,12 @@ import { remote } from 'electron'
 
 import { store } from 'views/create-store'
 
-import { PLUGIN_NAME } from './constant'
+import { DBG, PLUGIN_NAME } from './constant'
 import {
   pluginConfigSelector,
   pluginStateSelector,
   initPlugin,
+  removePlugin,
   startBattle,
   endBattle,
 } from './redux'
@@ -60,12 +61,15 @@ const needNotification = () => {
   const { inBattle } = pluginStateSelector(state)
   const { noticeOnlyBackground, noticeOnlyMuted } = pluginConfigSelector(state)
   if (noticeOnlyMuted && !isPoiMuted()) {
+    DBG.log('no need notice because noticeOnlyMuted')
     return false
   }
   if (!inBattle) {
+    DBG.log('no need notice because not battling')
     return false
   }
   if (noticeOnlyBackground && isPoiFocused()) {
+    DBG.log('no need notice because noticeOnlyBackground')
     return false
   }
   return true
@@ -96,15 +100,14 @@ const handleResponseDetails = event => {
 }
 
 export const pluginDidLoad = () => {
-  // dbg.extra('plugin-battle-notice')
   // https://electronjs.org/docs/api/web-request
   session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
+    callback({ cancel: false })
     try {
       handleResponseDetails(details)
     } catch (err) {
       console.error(`${PLUGIN_NAME} handleResponseDetails error!`, err)
     }
-    callback({ cancel: false })
   })
   window.addEventListener('game.response', handleGameResponse)
   store.dispatch(initPlugin())
@@ -113,6 +116,7 @@ export const pluginDidLoad = () => {
 export const pluginWillUnload = () => {
   session.defaultSession.webRequest.onBeforeRequest(null)
   window.removeEventListener('game.response', handleGameResponse)
+  store.dispatch(removePlugin())
 }
 
 export { reducer } from './redux'
