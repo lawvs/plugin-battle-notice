@@ -1,4 +1,4 @@
-/* global config, getStore, notify, i18next */
+/* global config, getStore, notify, i18n */
 import { remote } from 'electron'
 
 import { store } from 'views/create-store'
@@ -13,7 +13,7 @@ import {
 } from './redux'
 
 const { session, BrowserWindow } = remote
-const __ = i18next.getFixedT(null, PLUGIN_NAME)
+const __ = i18n[PLUGIN_NAME].fixedT
 
 const isCompassNotice = () => {
   const state = getStore()
