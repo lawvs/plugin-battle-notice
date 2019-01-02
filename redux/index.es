@@ -10,7 +10,7 @@ import { PLUGIN_NAME } from '../constant'
 const defaultConfig = {
   noticeOnlyBackground: true, // default notice when poi window is not focused
   noticeOnlyMuted: false,
-  compassNotice: false,
+  // compassNotice: false,
 }
 
 // Selector
@@ -33,8 +33,6 @@ export const pluginStateSelector = createSelector(
 const PLUGIN_INIT = `@@${PLUGIN_NAME}@init`
 const PLUGIN_REMOVE = `@@${PLUGIN_NAME}@remove`
 const CONFIG_CHANGE = `@@${PLUGIN_NAME}@configChange`
-const BATTLE_START = `@@${PLUGIN_NAME}@battleStart`
-const BATTLE_END = `@@${PLUGIN_NAME}@battleEnd`
 
 const initState = {
   inBattle: false,
@@ -44,21 +42,18 @@ const initState = {
 export function reducer(state = initState, action, store) {
   const { type } = action
   switch (type) {
-    case CONFIG_CHANGE: {
-      return state
-    }
-    case BATTLE_START: {
+    case '@@Response/kcsapi/api_req_practice/battle':
+    case '@@Response/kcsapi/api_req_sortie/battle':
       return {
         ...state,
         inBattle: true,
       }
-    }
-    case BATTLE_END: {
+    case '@@Response/kcsapi/api_req_practice/battle_result':
+    case '@@Response/kcsapi/api_req_sortie/battleresult':
       return {
         ...state,
         inBattle: false,
       }
-    }
     default: {
       return state
     }
@@ -77,7 +72,5 @@ export const updatePluginConfig = (key, value) => {
   }
 }
 
-export const startBattle = () => ({ type: BATTLE_START })
-export const endBattle = () => ({ type: BATTLE_END })
 export const initPlugin = () => ({ type: PLUGIN_INIT })
 export const removePlugin = () => ({ type: PLUGIN_REMOVE })
