@@ -23,6 +23,13 @@ Enable the plugin log `dbg.enableExtra('poi-plugin-battle-notice')`
 
 - Initial version
 
+### v0.3.0
+
+- Support other battle type
+- Add feedback link
+- Fix conflict with poi-plugin-subtitle
+- Fix unable to modify config
+
 ## Thanks to
 
 - [poi](https://github.com/poooi/poi)
