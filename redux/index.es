@@ -1,4 +1,5 @@
 /* global config */
+import { get } from 'lodash'
 import { createSelector } from 'reselect'
 
 // https://github.com/poooi/poi/blob/master/views/utils/selectors.es
@@ -18,7 +19,7 @@ export const pluginConfigSelector = createSelector(
   configSelector,
   state => ({
     ...defaultConfig,
-    ...state?.plugin?.PLUGIN_NAME,
+    ...get(state, `plugin.${PLUGIN_NAME}`),
   }),
 )
 
