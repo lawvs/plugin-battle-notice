@@ -8,7 +8,7 @@ import { Switch } from '@blueprintjs/core'
 import { Wrapper } from 'views/components/settings/components/section'
 
 import { pluginConfigSelector, updatePluginConfig } from '../redux'
-import { PLUGIN_NAME } from '../constant'
+import { PLUGIN_NAME, FEEDBACK_URL } from '../constant'
 
 const Settings = props => {
   const { t } = props
@@ -35,6 +35,9 @@ const Settings = props => {
           {t('Notice only muted')}
         </Switch>
       </Wrapper>
+      <p>
+        <a href={FEEDBACK_URL}>{t('Feedback')}</a>
+      </p>
     </>
   )
 }
