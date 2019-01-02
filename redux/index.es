@@ -42,18 +42,43 @@ const initState = {
 export function reducer(state = initState, action, store) {
   const { type } = action
   switch (type) {
+    // https://github.com/poooi/lib-battle/blob/master/simulator.es#L972-L1007
+    // Day Battle
     case '@@Response/kcsapi/api_req_practice/battle':
     case '@@Response/kcsapi/api_req_sortie/battle':
+    case '@@Response/kcsapi/api_req_sortie/airbattle':
+    case '@@Response/kcsapi/api_req_sortie/ld_airbattle':
+    case '@@Response/kcsapi/api_req_sortie/ld_shooting':
+    case '@@Response/kcsapi/api_req_combined_battle/battle':
+    case '@@Response/kcsapi/api_req_combined_battle/battle_water':
+    case '@@Response/kcsapi/api_req_combined_battle/airbattle':
+    case '@@Response/kcsapi/api_req_combined_battle/ld_airbattle':
+    case '@@Response/kcsapi/api_req_combined_battle/ld_shooting':
+    case '@@Response/kcsapi/api_req_combined_battle/ec_battle':
+    case '@@Response/kcsapi/api_req_combined_battle/each_battle':
+    case '@@Response/kcsapi/api_req_combined_battle/each_battle_water':
+    // Night Battle
+    case '@@Response/kcsapi/api_req_practice/midnight_battle':
+    case '@@Response/kcsapi/api_req_battle_midnight/battle':
+    case '@@Response/kcsapi/api_req_battle_midnight/sp_midnight':
+    case '@@Response/kcsapi/api_req_combined_battle/midnight_battle':
+    case '@@Response/kcsapi/api_req_combined_battle/sp_midnight':
+    case '@@Response/kcsapi/api_req_combined_battle/ec_midnight_battle':
+    case '@@Response!COMPAT/midnight_battle':
       return {
         ...state,
         inBattle: true,
       }
+    // Battle Result
     case '@@Response/kcsapi/api_req_practice/battle_result':
     case '@@Response/kcsapi/api_req_sortie/battleresult':
+    case '@@Response/kcsapi/api_req_combined_battle/battleresult':
       return {
         ...state,
         inBattle: false,
       }
+    // Night to Day
+    // case '@@Response/kcsapi/api_req_combined_battle/ec_night_to_day':
     default: {
       return state
     }
