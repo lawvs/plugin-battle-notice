@@ -3,7 +3,7 @@ import { remote } from 'electron'
 
 import { store } from 'views/create-store'
 
-import { DBG, PLUGIN_NAME } from './constant'
+import { DBG, PLUGIN_NAME, TARGET_AUDIO } from './constant'
 import {
   pluginConfigSelector,
   pluginStateSelector,
@@ -56,7 +56,7 @@ const handleResponseDetails = event => {
   ) {
     return
   }
-  const match = /kcs2\/resources\/se\/217\.mp3/.exec(event.url)
+  const match = event.url.includes(TARGET_AUDIO)
   if (!match) {
     return
   }
@@ -68,8 +68,7 @@ const handleResponseDetails = event => {
 
 export const pluginDidLoad = () => {
   // https://electronjs.org/docs/api/web-request
-  session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
-    callback({ cancel: false })
+  session.defaultSession.webRequest.onCompleted(details => {
     try {
       handleResponseDetails(details)
     } catch (err) {
@@ -80,7 +79,7 @@ export const pluginDidLoad = () => {
 }
 
 export const pluginWillUnload = () => {
-  session.defaultSession.webRequest.onBeforeRequest(null)
+  session.defaultSession.webRequest.onCompleted(null)
   store.dispatch(removePlugin())
 }
 
