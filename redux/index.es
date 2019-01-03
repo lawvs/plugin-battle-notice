@@ -7,7 +7,7 @@ import { createSelector } from 'reselect'
 import { configSelector, extensionSelectorFactory } from 'views/utils/selectors'
 
 import { PLUGIN_NAME } from '../constant'
-import { handleResponse } from '../util'
+import { handleResponse } from '../utils'
 
 const defaultConfig = {
   noticeOnlyBackground: true, // default notice when poi window is not focused
