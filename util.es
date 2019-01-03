@@ -1,8 +1,8 @@
-/* global config, getStore */
+/* global config, getStore, notify */
 import { remote } from 'electron'
 
 import { pluginConfigSelector, pluginStateSelector } from './redux'
-import { DBG } from './constant'
+import { __, DBG, BATTLE_END_AUDIO } from './constant'
 
 const { BrowserWindow } = remote
 
@@ -33,4 +33,28 @@ export const needNotification = () => {
     return false
   }
   return true
+}
+
+/**
+ * @param {{id: number, url: string, method: string, webContentsId: number, resourceType: string, timestamp: number, uploadData: object}} event
+ */
+export const handleResponse = details => {
+  // https://github.com/kcwikizh/poi-plugin-subtitle/commit/b6e1db23527c4b1c7d5188afa758c86d59e0501b
+  // https://github.com/kcwikizh/poi-plugin-subtitle/commit/ad4ea716315ce026cc5d300bac0ec74a76c3885f
+  if (
+    getStore('layout.webview.ref') &&
+    getStore('layout.webview.ref').isReady() &&
+    details.webContentsId !== getStore('layout.webview.ref').getWebContents().id
+  ) {
+    return
+  }
+  const match = details.url.includes(BATTLE_END_AUDIO)
+  if (!match) {
+    return
+  }
+  if (!needNotification()) {
+    return
+  }
+  DBG.log('notice at battle end')
+  notify(__('Battle end'))
 }

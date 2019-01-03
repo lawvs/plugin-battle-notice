@@ -1,14 +1,13 @@
-/* global config, getStore, notify */
+/* global config */
 import { remote } from 'electron'
 import { get } from 'lodash'
 import { createSelector } from 'reselect'
 
 // https://github.com/poooi/poi/blob/master/views/utils/selectors.es
 import { configSelector, extensionSelectorFactory } from 'views/utils/selectors'
-import { store } from 'views/create-store'
 
-import { __, DBG, PLUGIN_NAME, BATTLE_END_AUDIO } from '../constant'
-import { needNotification } from '../util'
+import { PLUGIN_NAME } from '../constant'
+import { handleResponse } from '../util'
 
 const defaultConfig = {
   noticeOnlyBackground: true, // default notice when poi window is not focused
@@ -36,7 +35,6 @@ export const pluginStateSelector = createSelector(
 const PLUGIN_INIT = `@@${PLUGIN_NAME}@init`
 const PLUGIN_REMOVE = `@@${PLUGIN_NAME}@remove`
 const CONFIG_CHANGE = `@@${PLUGIN_NAME}@configChange`
-const RESPONSE = `@@${PLUGIN_NAME}@gameResponse`
 
 const initState = {
   inBattle: false,
@@ -93,9 +91,7 @@ export function reducer(state = initState, action, store) {
 export const initPlugin = () => {
   const { session } = remote
   // https://electronjs.org/docs/api/web-request
-  session.defaultSession.webRequest.onCompleted(details =>
-    store.dispatch(handleResponse(details)),
-  )
+  session.defaultSession.webRequest.onCompleted(handleResponse)
   return { type: PLUGIN_INIT }
 }
 
@@ -113,39 +109,5 @@ export const updatePluginConfig = (key, value) => {
     type: CONFIG_CHANGE,
     path: key,
     value,
-  }
-}
-
-/**
- * @param {{id: number, url: string, method: string, webContentsId: number, resourceType: string, timestamp: number, uploadData: object}} event
- */
-export const handleResponse = details => {
-  const action = {
-    type: RESPONSE,
-    details,
-    notice: false,
-  }
-  // https://github.com/kcwikizh/poi-plugin-subtitle/commit/b6e1db23527c4b1c7d5188afa758c86d59e0501b
-  // https://github.com/kcwikizh/poi-plugin-subtitle/commit/ad4ea716315ce026cc5d300bac0ec74a76c3885f
-  if (
-    getStore('layout.webview.ref') &&
-    getStore('layout.webview.ref').isReady() &&
-    details.webContentsId !== getStore('layout.webview.ref').getWebContents().id
-  ) {
-    return action
-  }
-  const match = details.url.includes(BATTLE_END_AUDIO)
-  if (!match) {
-    return action
-  }
-  if (!needNotification()) {
-    return action
-  }
-  DBG.log('notice at battle end')
-  notify(__('Battle end'))
-  return {
-    ...action,
-    notice: true,
-    noticeType: 'Battle end',
   }
 }
