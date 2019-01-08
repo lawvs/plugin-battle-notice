@@ -24,7 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.10.0",
+    "eslint": "^5.11.1",
     "eslint-config-poi-plugin": "^1.0.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-import": "^2.14.0",
