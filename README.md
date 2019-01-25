@@ -6,6 +6,10 @@ A plugin for [Poi](https://github.com/poooi/poi)
 
 Notice after the end of the battle.
 
+**Notice: battle end notify has been implemented on the poiv10.2.0**
+
+**You no longer need this plugin**
+
 ## Installation method
 
 - POI -> Settings -> Plugins
@@ -13,11 +17,12 @@ Notice after the end of the battle.
 - Input `poi-plugin-battle-notice` in input box.
 - Click the `Install` Button.
 
-## Notes for developers
-
-Enable the plugin log `dbg.enableExtra('poi-plugin-battle-notice')`
-
 ## Changelog
+
+### v1.0.0
+
+- Delete the code because of battle end notify has been implemented on the poiv10.2.0
+	- More Detail: [poi/Feat: add battle end notify](https://github.com/poooi/poi/pull/2093)
 
 ### v0.3.0
 

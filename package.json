@@ -36,7 +36,9 @@
     "title": "Battle Notice",
     "icon": "bell",
     "description": "Notice after the end of the battle",
-    "priority": 101,
-    "apiVer": {}
+    "priority": 999,
+    "apiVer": {
+      "10.2.0": "1.0.0"
+    }
   }
 }
