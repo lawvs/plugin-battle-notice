@@ -19,10 +19,6 @@ Enable the plugin log `dbg.enableExtra('poi-plugin-battle-notice')`
 
 ## Changelog
 
-### v0.2.1
-
-- Initial version
-
 ### v0.3.0
 
 - Support other battle type
@@ -30,10 +26,16 @@ Enable the plugin log `dbg.enableExtra('poi-plugin-battle-notice')`
 - Fix conflict with poi-plugin-subtitle
 - Fix unable to modify config
 
+### v0.2.1
+
+- Initial version
+
 ## Thanks to
 
 - [poi](https://github.com/poooi/poi)
 - [kcsapi.ts](https://github.com/KagamiChan/kcsapi.ts)
+- [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle)
+- [plugin-prophet](https://github.com/poooi/plugin-prophet)
 
 [npm-badge]: https://img.shields.io/npm/v/poi-plugin-battle-notice.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/poi-plugin-battle-notice
